@@ -1,0 +1,76 @@
+Q.SSH Server:Password Authentication, Configure SSH Server to manage a server from remote computer,SSH Clients.
+@nswer...
+
+PASSWORD AUTHENTICATION
+Enabling~
+Before enabling password-based authentication, make sure that you already have the password. If you want to change it before enabling password-based authentication, log in as root user and then run the following command in the terminal,
+<passwd>
+
+You will be prompted to enter the new password. Enter your new password and finish the setup process.
+
+STEP 1 – After logging into your server as root user, open the sshd_config file in editing mode. You can do this by running the following command in the terminal. We will use vim editor for this article. Press I to edit the file
+
+vim /etc/ssh/sshd_config
+STEP 2 – Look for the line PasswordAuthentication no and replace no with yes.
+
+PasswordAuthentication yes
+Press ESC key and save the changes to the file and exit the editor by typing: wq! and then hit Enter.
+
+STEP 3 – Now restart the server by running the following command.
+
+/etc/init.d/sshd restart
+Password authentication is now enabled for SSH access to your server.
+
+Disabling~
+Before disabling password-based authentication, please make sure that you have copied your public key into the server and your private key matches with the public key. If you lose your private key and disable password authentication then your server will become inaccessible.
+
+STEP 1 – From your server open the sshd_config file in editing mode. You can do this by running the following command in the terminal. We will use vim editor for this article. Press I to edit the file
+
+vim /etc/ssh/sshd_config
+STEP 2 – Look for the line PasswordAuthentication yes and replace yes with no.
+
+PasswordAuthentication no
+Press ESC key and save the changes to the file and exit the editor by typing: wq! and then hit Enter.
+
+STEP 3 – Now restart the server by running the following command.
+
+service sshd restart
+Password authentication is now removed from SSH access to your server.
+-----
+Configure SSH server
+Before configuring run this command to update the repository.
+apt-get update
+
+Inorder to Install open-ssh-server
+apt-get install openssh-server
+
+To configure
+nano /etc/ssh/sshd_config
+
+To remotely manage server
+In order to connect to the remote Debian 10 machine, you need to have its IP address, username, and password.
+
+Following is the complete syntax of the command if your SSH server is listening on default port 22.
+
+ssh <user@IPaddress>
+
+You will be prompted for a user password, provide with the help of keyboard and hit Enter.
+
+Suppose, the user is tony and the remote machine IP address is 10.1.1.2. Run the following command on the terminal.
+
+ssh bucks@10.1.1.2
+
+if your SSH server is listening on some other port (suppose 2222). The complete syntax of the command should be as follows.
+
+ssh -p <port number> user@IP address
+
+Suppose, the user is tony and the remote machine IP address is 10.1.1.2. Run the following command on the terminal.
+
+ssh -p 2222 bucks@10.1.1.2
+------
+SSH Clients
+Putty
+Openssh
+Filezilla
+Powershell
+Windows ssh

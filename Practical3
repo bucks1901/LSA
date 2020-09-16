@@ -1,0 +1,47 @@
+Q.NFS-installation,exports
+@nswer....
+ Install NFS Kernel Server
+Before installing the NFS Kernel server, we need to update our system’s repository index with that of the Internet through the following apt command as sudo:
+$ sudo apt-get update
+
+in order to install the NFS Kernel Server on your system:
+$ sudo apt-get -y install nfs-kernel-server
+$ sudo systemctl enable nfs-kernel-server
+
+
+ Create the Export
+we can create an export directory by the name of “sharedfolder” in our system’s mnt(mount) directory.
+By specifying a mount folder name according to your need, through the following command as root:
+$ sudo mkdir -p /mnt/sharedfolder
+
+we will remove restrictive permissions of the export folder through the following commands:
+
+$ sudo chown nobody:nogroup /mnt/sharedfolder
+$ sudo chmod 777 /mnt/sharedfolder
+
+you can allow access to:
+
+A single client by adding the following line in the file:
+/mnt/sharedfolder clientIP(rw,sync,no_subtree_check)
+Multiple clients by adding the following lines in the file:
+/mnt/sharedfolder client1IP(rw,sync,no_subtree_check)
+/mnt/sharedfolder client2IP(rw,sync,no_subtree_check)
+Multiple clients, by specifying an entire subnet that the clients belong to:
+/mnt/sharedfolder subnetIP/24(rw,sync,no_subtree_check)
+
+vi a.txt
+(Type I)
+hello
+Esc:wq!
+PWD
+ls a.txt
+mv a.txt demo_dir
+ls /home/bucks/demo_dir
+sudo vi /etc/exports
+(Type I)
+Enter~ /home/bucks/demo_dir 127.0.0.1(rw)
+Esc:wq!
+cat /etc/export
+sudo export fs -a
+
+
